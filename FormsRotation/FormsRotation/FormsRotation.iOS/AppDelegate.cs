@@ -38,17 +38,18 @@ namespace FormsRotation.iOS
             switch (args.Navigation)
             {
                 case App.ShowPortraitView:
-                    sender.Navigation.PushAsync(new PortraitPage());
                     OrientationMask = UIInterfaceOrientationMask.Portrait;
+                    sender.Navigation.PushModalAsync(new PortraitPage());                    
                     break;
+
                 case App.ShowLandscapeView:
-                    OrientationMask = UIInterfaceOrientationMask.Portrait;
-                    sender.Navigation.PushAsync(new LandscapePage());
+                    OrientationMask = UIInterfaceOrientationMask.Landscape;
+                    sender.Navigation.PushModalAsync(new LandscapePage());
                     break;
             }
         }
         
-        //todo this exports caused the iOS simulator to crash, works on devices...
+        //todo this export caused the iOS simulator to crash, works on devices...
         [Export("application:supportedInterfaceOrientationsForWindow:")]
         public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, IntPtr forWindow)
         {

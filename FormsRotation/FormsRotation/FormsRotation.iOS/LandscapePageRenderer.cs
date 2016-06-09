@@ -7,23 +7,24 @@ using Xamarin.Forms.Platform.iOS;
 namespace FormsRotation.iOS
 {
     public class LandscapePageRenderer : PageRenderer
-    {
-
+    {        
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
             base.OnElementChanged(e);
 
-            var hostViewController = ViewController;
+            var label = new UILabel(new CGRect(40, 40, 320, 40)) { Text = "Native Landscape iOS UIViewController" };
+            View.Add(label);
 
-            var viewController = new UIViewController();
+            //back button
+            var button = UIButton.FromType(UIButtonType.RoundedRect);
+            button.SetTitle("Back", UIControlState.Normal);
+            button.Frame = new CGRect(0, 100, 140, 40);
+            button.TouchUpInside += (s, a) =>
+            {
+                Element.Navigation.PushModalAsync(new MainPage());
+            };
+            View.AddSubview(button);
 
-            var label = new UILabel(new CGRect(0, 40, 320, 40)) {Text = "Native Landscape iOS UIViewController" };
-            viewController.View.Add(label);
-
-            hostViewController.AddChildViewController(viewController);
-            hostViewController.View.Add(viewController.View);
-
-            viewController.DidMoveToParentViewController(hostViewController);
         }
 
         public override void ViewDidLoad()
@@ -34,7 +35,7 @@ namespace FormsRotation.iOS
 
         public override bool ShouldAutorotate()
         {
-            return true;
+            return false;
         }
 
         public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
@@ -50,7 +51,7 @@ namespace FormsRotation.iOS
         private static void RestrictRotation(bool restriction)
         {
             var app = (AppDelegate)UIApplication.SharedApplication.Delegate;
-            app.RestrictRotation = restriction;
+            app.RestrictRotation = restriction;            
         }
 
         public override void ViewDidDisappear(bool animated)
