@@ -18,7 +18,7 @@ namespace FormsRotation
 
             var portraitButton = new Button
             {
-                Text = "Show Portait Page"
+                Text = "Show Portrait Page"
             };
 
             portraitButton.Clicked +=
