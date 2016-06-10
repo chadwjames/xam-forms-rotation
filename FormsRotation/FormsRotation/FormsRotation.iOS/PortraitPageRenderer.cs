@@ -21,6 +21,7 @@ namespace FormsRotation.iOS
             button.Frame = new CGRect(0, 100, 140, 40);
             button.TouchUpInside += (s, a) =>
             {
+                RestrictRotation(false);
                 Element.Navigation.PushModalAsync(new MainPage());
             };
             View.AddSubview(button);
